@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="css/exam.css"/>
+	</head>
+
+	<body>
+		<div class = "main">
+			<div class ="BUT">External Css</div>
+			<div id ="External">
+				A computer science portal for bsc
+			</div>
+		</div>
+	</body>
+</html>
