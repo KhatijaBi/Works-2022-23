@@ -1,0 +1,121 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  height: auto;
+}
+
+/* Style the header */
+header {
+  background-image:url("../images/collage_08.jpg");
+  height: 455px;
+  background-repeat: no-repeat;
+  color: hsl(242, 86%, 17%);
+  font-size: 40px;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: content;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 350px;
+  height: 1106px; 
+  background:#233039;
+  padding: 20px;
+  color: white;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mine {
+  float: right;
+  padding: 20px;
+  width: 1072px;
+  height: 3000px;
+  background-color:#d4a851; 
+  height: auto;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.mine:hover{
+
+
+  background-color:#f0d091; 
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* Style the footer */
+footer {
+  background-color: #ebebf1;
+  width:auto;
+  color: black;
+  padding: 20px;
+  font-size: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.media{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.left{
+  float:left;
+}
+
+.right{
+  float:right;
+
+}
+
+.abc {
+  text-decoration: none;
+  color: rgb(193, 160, 130);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  .abcd{
+    text-decoration:underline;
+
+  }
+
+span{
+  padding: 20px;
+  font-size: 14px; 
+}
+
+
+
+body {
+  font-family:Georgia, Times, 'Times New Roman', serif;
+
+}
+p {
+  text-shadow: 0 0 7px rgba(255,255,255,.3), 0 0 3px rgba(255,255,255,.3);
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: auto) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
