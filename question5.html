@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Shopping Complex</title>
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone/babel.min.js"></script>
+  <style>
+    /* Styles here */
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script type="text/babel">
+    // Shop component
+    const uri = "mongodb+srv://AlishaTaj:alisha24102003@cluster0.9ugfq6w.mongodb.net/?retryWrites=true&w=majority";
+
+    class Shop extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          shops: [],
+          name: '',
+          rent: '',
+          totalRent: 0
+        };
+      }
+
+      handleInputChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+      }
+
+      handleAddShop = () => {
+        const { name, rent } = this.state;
+        const shop = { name, rent };
+
+        // Send a POST request to add a new shop to MongoDB
+        fetch('/api/shops', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(shop)
+        })
+          .then(response => response.json())
+          .then(data => {
+            this.setState(prevState => ({
+              shops: [...prevState.shops, data],
+              name: '',
+              rent: '',
+              totalRent: prevState.totalRent + parseInt(rent)
+            }));
+          });
+      }
+
+      handleDeleteShop = (index) => {
+        const { shops } = this.state;
+        const deletedShop = shops[index];
+        const updatedShops = shops.filter((_, i) => i !== index);
+
+        // Send a DELETE request to remove the shop from MongoDB
+        fetch(`/api/shops/${deletedShop._id}`, {
+          method: 'DELETE'
+        })
+          .then(() => {
+            this.setState(prevState => ({
+              shops: updatedShops,
+              totalRent: prevState.totalRent - parseInt(deletedShop.rent)
+            }));
+          });
+      }
+
+      componentDidMount() {
+        // Fetch the initial shops data from MongoDB
+        fetch('/api/shops')
+          .then(response => response.json())
+          .then(data => {
+            const totalRent = data.reduce((acc, shop) => acc + parseInt(shop.rent), 0);
+            this.setState({ shops: data, totalRent });
+          });
+      }
+
+      render() {
+        const { shops, name, rent, totalRent } = this.state;
+
+        return (
+          <div className="container">
+            <h1>Shopping Complex</h1>
+            <div>
+              <label>Shop Name:</label>
+              <input type="text" name="name" value={name} onChange={this.handleInputChange} placeholder="Enter shop name" />
+            </div>
+            <div>
+              <label>Rent:</label>
+              <input type="number" name="rent" value={rent} onChange={this.handleInputChange} placeholder="Enter rent" />
+            </div>
+            <div>
+              <button onClick={this.handleAddShop}>Add Shop</button>
+            </div>
+            <ul>
+              {shops.map((shop, index) => (
+                <li key={shop._id}>
+                  <span>{shop.name} - ${shop.rent}</span>
+                  <button onClick={() => this.handleDeleteShop(index)}>Delete</button>
+                </li>
+              ))}
+            </ul>
+            <div>
+              <strong>Total Rent: ${totalRent}</strong>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Render the Shop component
+    ReactDOM.render(<Shop />, document.getElementById('app'));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React CRUD Example</title>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@7.14.6/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // Shop component
+    class Shop extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          shops: [],
+          name: '',
+          rent: ''
+        };
+      }
+
+      componentDidMount() {
+        // Fetch the initial shops data from an API endpoint
+        fetch('/api/shops')
+          .then(response => response.json())
+          .then(data => this.setState({ shops: data }));
+      }
+
+      handleInputChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+      }
+
+      handleAddShop = () => {
+        const { name, rent } = this.state;
+        const shop = { name, rent };
+
+        // Send a POST request to add a new shop
+        fetch('/api/shops', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(shop)
+        })
+          .then(response => response.json())
+          .then(data => {
+            this.setState({ shops: [...this.state.shops, data], name: '', rent: '' });
+          });
+      }
+
+      handleDeleteShop = (id) => {
+        // Send a DELETE request to delete a shop
+        fetch(`/api/shops/${id}`, {
+          method: 'DELETE'
+        })
+          .then(() => {
+            this.setState({ shops: this.state.shops.filter(shop => shop._id !== id) });
+          });
+      }
+
+      render() {
+        const { shops, name, rent } = this.state;
+
+        return (
+          <div>
+            <h1>Shopping Complex</h1>
+            <div>
+              <input type="text" name="name" value={name} onChange={this.handleInputChange} placeholder="Shop Name" />
+              <input type="text" name="rent" value={rent} onChange={this.handleInputChange} placeholder="Rent" />
+              <button onClick={this.handleAddShop}>Add Shop</button>
+            </div>
+            <ul>
+              {shops.map(shop => (
+                <li key={shop._id}>
+                  {shop.name} - {shop.rent}
+                  <button onClick={() => this.handleDeleteShop(shop._id)}>Delete</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<Shop />, document.getElementById('root'));
+  </script>
+</body>
+
+</html>
