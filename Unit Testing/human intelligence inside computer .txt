@@ -1,0 +1,58 @@
+human intelligence inside computer is ai
+making machines to learn like humans is ml
+-supervised -learning from someone
+it has features and labels
+regression and classification algos
+regression=1,2,3,4,5(continuous data prediction)
+
+classification=(yes/no),(true/false),(male/female),(infected/defected)
+-unsupervised - learning on own
+
+-reimforcement learning- rewards and penalties
+
+classification
+-linear regression
+-logistic regression
+-decision tree
+-random forest
+-svm(support vector machine)
+-KNN(k nearest neigbours)
+-Naive bayes
+
+Features= input =x
+Labels= y output
+Model= y=2x(what u build from input+output)=(equation)(function)(program)
+x=1 y=3 , x=2 y=6 equation is y=3x
+regular computer program= give input and get output
+machine learning program= give input n output derive program
+
+PPDD - predictive analysis(seeing past data and analysing future)-ML is predictive analysis.
+prescriptive analysis (problem prescription)
+descriptive analysis (describing problem)
+diagnosis analysis (diagonising problem)\
+
+Libraries used in machine learning
+Numpy (python number processing library)
+Scipy(python  scientific library)
+Matplotlib (plotting)
+Pandas(subset of sql and database)
+Scikit Learn(Library which has all machine learning algos)
+
+steps involved in ML programming
+1. Get/Collect Data -(Kaggle)
+x=1,3,5,7,8
+y=2,6,10,14,16
+2. Identify Algorithm -regression,classification
+x 40 50 60 20 10
+y 1 1 1 0
+
+Building an mathematical equation btw input and output is ML or DL.
+
+
+3.  Every ml has 3 methods
+   Fit - build model by taking input and output
+   Predict -it will input and predict output depending on the equation we have built.
+   Score - used for prediction accuracy.
+
+
+generative agressive neural network.
